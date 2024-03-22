@@ -1,21 +1,47 @@
-.course-list {
-  width: 95%;
-  margin: auto;
-  margin-top: 200px;
-  border: 1px solid gray;
-  border-collapse: collapse;
-}
+import React from 'react';
+import './CourseList.css';
+import CourseListRow from './CourseListRow';
+import PropTypes from 'prop-types';
+import CourseShape from './CourseShape';
 
-.course-list th[colspan='2'] {
-  text-align: center;
-}
+const CourseList = ({ listCourses }) => {
+  return (
+    <table className='course-list'>
+      <thead>
+        <CourseListRow textFirstCell='Available courses' isHeader={true} />
+        <CourseListRow
+          textFirstCell='Course name'
+          textSecondCell='Credit'
+          isHeader={true}
+        />
+      </thead>
+      <tbody>
+        {listCourses.length === 0 && (
+          <CourseListRow
+            textFirstCell='No course available yet'
+            isHeader={false}
+          />
+        )}
 
-.course-list th {
-  text-align: left;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-}
+        {listCourses.map((course) => (
+          <CourseListRow
+            key={course.id}
+            textFirstCell={course.name}
+            textSecondCell={course.credit}
+            isHeader={false}
+          />
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
-.course-list td {
-  text-align: left;
-}
+CourseList.defaultProps = {
+  listCourses: [],
+};
+
+CourseList.propTypes = {
+  listCourses: PropTypes.arrayOf(CourseShape),
+};
+
+export default CourseList;
