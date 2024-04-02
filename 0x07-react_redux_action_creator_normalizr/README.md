@@ -1,0 +1,1 @@
+0x07_react_redux_action_creator_normalizr
